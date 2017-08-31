@@ -9,7 +9,6 @@ import threading
 
 "Clear the HAT screen and set static content"
 lcd.clear(); lcd.set_contrast(50); backlight.set_graph(0)
-backlight.rgb(0,255,0)
 lcd.set_cursor_position(0,0); lcd.write("Bitstamp:")
 
 "bitstamp API url for updated price information"
@@ -45,10 +44,14 @@ def update():
         #lcd.set_cursor_position(0,2); lcd.write("$" + str(ticker()) + "/BTC")
         string = "$" + str(priceFloat) + "/BTC"
         sleep(5)
-0
+
 "redraws the LCD screen with latest prices"
 def scroller():
+    x = 0
     while True:
+	x +=3
+	x %= 360
+        backlight.sweep((360.0 - x) / 360.0)
         menu.redraw()
         sleep(0.01)
 
