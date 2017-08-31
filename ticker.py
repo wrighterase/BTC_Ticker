@@ -9,10 +9,12 @@ import threading
 
 "Clear the HAT screen and set static content"
 lcd.clear(); lcd.set_contrast(50); backlight.set_graph(0)
-lcd.set_cursor_position(0,0); lcd.write("Bitstamp:")
+lcd.set_cursor_position(0,0); lcd.write("Bittrex BTC-PAY:")
 
 "bitstamp API url for updated price information"
-URL = 'https://www.bitstamp.net/api/ticker/'
+"added bittrex prices for pairs"
+#URL = 'https://www.bitstamp.net/api/ticker/'
+URL = "https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-pay"
 string = ""
 
 class Ticker(MenuOption):
@@ -38,11 +40,9 @@ def update():
     while True:
         global string
         r = requests.get(URL)
-        priceFloat = float(json.loads(r.text)['last'])
-        #return priceFloat
-        #print "Bitstamp last price: $" + str(priceFloat) + "/BTC"
-        #lcd.set_cursor_position(0,2); lcd.write("$" + str(ticker()) + "/BTC")
-        string = "$" + str(priceFloat) + "/BTC"
+        #priceFloat = float(json.loads(r.text)['last'])
+	price = json.loads(r.text)['result'][0]['Last']
+        string = "$" + str(price) + "/PAY"
         sleep(5)
 
 "redraws the LCD screen with latest prices"
