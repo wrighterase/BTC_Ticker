@@ -9,7 +9,10 @@ import threading
 
 "Clear the HAT screen and set static content"
 lcd.clear(); lcd.set_contrast(50); backlight.set_graph(0)
+backlight.graph_set_led_state(0,0); backlight.graph_set_led_state(5,0)
+
 lcd.set_cursor_position(0,0); lcd.write("Bittrex BTC-PAY:")
+lcd.set_cursor_position(0,0); lcd.write("I'm rich biatch!")
 
 "bitstamp API url for updated price information"
 "added bittrex prices for pairs"
